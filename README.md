@@ -26,6 +26,17 @@
 
 ![cloud-architecture](assets/cloud-architecture.png)
 
+This system involves a cloud architecture that consists of the following components:
+
+- Raspberry Pi: The Raspberry Pi is responsible for collecting data from the DHT11 sensor and transmitting it to the cloud using the MQTT protocol.
+- AWS IoT Core: The AWS IoT Core MQTT client is used to receive the data transmitted by the Raspberry Pi and trigger an AWS Lambda function.
+- AWS Lambda: The Lambda function is responsible for storing the data into an AWS RDS database. It is triggered by AWS IoT Core whenever new data is received from the Raspberry Pi.
+- AWS RDS: The AWS RDS database is hosted within a VPC. It stores the environmental data with timestamps and enables us to retrieve and analyze it as needed.
+- Web Application: A web application is developped with Django to provide an interactive interface for managing and visualizing the sensor data. It is deployed on an AWS EC2.
+- AWS EC2: The web application is deployed on an AWS EC2 instance, which is configured to run nginx and uwsgi to handle HTTP requests.
+- AWS VPC: The AWS VPC is used to host the AWS RDS database and EC2 instance. NAT in the VPC is configured to enable access to the web application from the public network.
+- RESTful APIs: With Django REST Framework, RESTful APIs enable functionality such as sensor management. These APIs can be accessed by the Raspberry Pi, enabling it to interact with the system remotely.
+
 ## Application interface
 
 ![img](assets/page-login.png)
@@ -39,3 +50,7 @@
 ![img](assets/page-devices.png)
 
 ![img](assets/page-add-device.png)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
